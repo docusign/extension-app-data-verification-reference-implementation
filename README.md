@@ -11,6 +11,9 @@ This reference implementation models seven data verification use cases:
 
 Each use case corresponds to a separate extension app manifest located in the [manifests](/manifests/) folder of this repository.
 
+## Video Walkthrough
+[![Reference implementation videos](https://img.youtube.com/vi/_4p7GWK5aoA/0.jpg)](https://youtube.com/playlist?list=PLXpRTgmbu4or5pJIFg6h1bg1Gt4wZTYbT&feature=shared)
+
 ## Setup instructions
 ### 1. Clone the repository
 Run the following command to clone the repository:
