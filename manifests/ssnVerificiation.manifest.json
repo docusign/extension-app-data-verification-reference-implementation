@@ -26,11 +26,11 @@
       "params": {
         "provider": "CUSTOM",
         "scopes": [],
-        "clientId": "001510f165ec255faaae8686f4514e52d84f115b309210eda4d6b1e4fe9f9e35fb1dc7a7b59c8994cd033fd95cdacec5137b6280a0b61aea06b6419c20edb7ed",
-        "clientSecret": "001510f165ec255faaae8686f4514e52d84f115b309210eda4d6b1e4fe9f9e35fb1dc7a7b59c8994cd033fd95cdacec5137b6280a0b61aea06b6419c20edb7ed",
+        "clientId": "<CLIENT_ID>",
+        "clientSecret": "<CLIENT_SECRET>",
         "customConfig": {
-          "tokenUrl": "https://210c-69-236-216-221.ngrok-free.app/api/oauth/token",
-          "authorizationUrl": "https://210c-69-236-216-221.ngrok-free.app/api/oauth/authorize",
+          "tokenUrl": "<PROXY_BASE_URL>/api/oauth/token",
+          "authorizationUrl": "<PROXY_BASE_URL>/api/oauth/authorize",
           "authorizationParams": {
             "access_type": "offline",
             "prompt": "consent"
@@ -57,7 +57,7 @@
       "template": "Verify.Version2.SocialSecurityNumber",
       "connectionsReference": "authentication",
       "params": {
-        "uri": "https://210c-69-236-216-221.ngrok-free.app/api/verify/ssn"
+        "uri": "<PROXY_BASE_URL>/api/verify/ssn"
       }
     }
   ],
