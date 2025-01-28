@@ -7,7 +7,7 @@ import { verifyEmail } from '../services/emailVerification.service';
 import { verifyBusinessFEIN } from '../services/businessFeinVerification.service';
 import { verifyPhoneNumber } from '../services/phoneVerification.service';
 import { verifySSN } from '../services/ssnVerification.service';
-import { verifyPostalAddress, verifyTypeaheadPostalAddress } from 'src/services/postalAddressVerification.service';
+import { verifyPostalAddress, verifyTypeaheadPostalAddress } from '../services/postalAddressVerification.service';
 import { expressjwt as jwt } from 'express-jwt';
 import { checkSchema } from 'express-validator';
 import {
