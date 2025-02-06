@@ -20,6 +20,8 @@ import { UnauthorizedError } from 'express-jwt';
 
 const app = express();
 
+app.use(express.static('./views'));
+
 app.set('view engine', 'pug');
 app.set('views', './views');
 
