@@ -2,7 +2,9 @@
 
 ## Specific Cloud Prerequisites
 
-To get started, you need to:
+Before deploying your extension app on Azure, complete the following setup steps:
+
+1. [Sign up for an Azure Free Account](https://azure.microsoft.com/free/) (if you don’t already have one).
 
 1. **Configure Azure CLI**: Install and configure the Azure CLI to interact with your Azure account. You can follow the instructions [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli).
 
@@ -20,7 +22,20 @@ To get started, you need to:
     export ARM_SUBSCRIPTION_ID="your-subscription-id"
     ```
 
+1. Make sure you have the correct permissions
+    Terraform needs sufficient permissions to create resources. Make sure your Azure user has the Contributor role:
+    ```sh
+    az role assignment list --assignee <your-email> --output table
+    ```
+    If needed, assign the correct role:
+    ```sh
+    az role assignment create --assignee <your-email> --role "Contributor" --scope "/subscriptions/your-subscription-id"
+    ```
+
+
 In that case `azurerm` Terraform provider is [authenticated to Azure using the Azure CLI](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/azure_cli), but you may use other methods for [authenticating to Azure](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure).
+
+Now that you’ve set up your Azure environment, continue with the [Terraform deployment guide](terraform/README.md) to provision your infrastructure.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -76,11 +91,11 @@ In that case `azurerm` Terraform provider is [authenticated to Azure using the A
 | <a name="input_application_build_base_image_name"></a> [application\_build\_base\_image\_name](#input\_application\_build\_base\_image\_name) | The name of the base image to use for the application build | `string` | `"node:lts-alpine"` | no |
 | <a name="input_application_build_context"></a> [application\_build\_context](#input\_application\_build\_context) | The relative path to the build context for the application. The build context is the directory from which the Dockerfile is read. If it is empty the current working directory will be used. | `string` | `"../.."` | no |
 | <a name="input_application_build_image_tag"></a> [application\_build\_image\_tag](#input\_application\_build\_image\_tag) | The tag to apply to the application build image. If empty the timestamp tag will be used. | `string` | `""` | no |
-| <a name="input_application_build_labels"></a> [application\_build\_labels](#input\_application\_build\_labels) | The labels to apply to the application build image | `map(string)` | <pre>{<br/>  "org.opencontainers.image.authors": "DocuSign Inc.",<br/>  "org.opencontainers.image.description": "This reference implementation models seven data verification use cases: bank account owner verification, bank account verification, business FEIN verification, email address verification, phone verification, SSN verification, postal address verification.",<br/>  "org.opencontainers.image.licenses": "MIT",<br/>  "org.opencontainers.image.source": "https://github.com/docusign/extension-app-data-verification-reference-implementation-private",<br/>  "org.opencontainers.image.title": "Data Verification Extension App Reference Implementation",<br/>  "org.opencontainers.image.vendor": "DocuSign Inc."<br/>}</pre> | no |
+| <a name="input_application_build_labels"></a> [application\_build\_labels](#input\_application\_build\_labels) | The labels to apply to the application build image | `map(string)` | <pre>{<br/>  "org.opencontainers.image.authors": "DocuSign Inc.",<br/>  "org.opencontainers.image.description": "This reference implementation models the use case of taking an agreement PDF sent by the Docusign platform using a file archive extension app and storing it locally.",<br/>  "org.opencontainers.image.licenses": "MIT",<br/>  "org.opencontainers.image.source": "https://github.com/docusign/extension-app-file-archive-reference-implementation-private",<br/>  "org.opencontainers.image.title": "File Archive Extension App Reference Implementation",<br/>  "org.opencontainers.image.vendor": "DocuSign Inc."<br/>}</pre> | no |
 | <a name="input_application_build_paths"></a> [application\_build\_paths](#input\_application\_build\_paths) | Paths of files relative to the build context, changes to which lead to a rebuild of the image. Supported pattern matches are the same as for the `fileset` Terraform function (https://developer.hashicorp.com/terraform/language/functions/fileset). | `list(string)` | <pre>[<br/>  "public/**",<br/>  "src/**",<br/>  "views/**",<br/>  "package.json",<br/>  "tsconfig.json",<br/>  "Dockerfile",<br/>  ".dockerignore"<br/>]</pre> | no |
 | <a name="input_application_environment_mode"></a> [application\_environment\_mode](#input\_application\_environment\_mode) | The environment mode for the application | `string` | `"production"` | no |
 | <a name="input_application_jwt_secret_key"></a> [application\_jwt\_secret\_key](#input\_application\_jwt\_secret\_key) | The secret key to use for signing JWT tokens. If empty, a random key will be generated. | `string` | `""` | no |
-| <a name="input_application_name"></a> [application\_name](#input\_application\_name) | The name of the application | `string` | `"extension-app-data-verification"` | no |
+| <a name="input_application_name"></a> [application\_name](#input\_application\_name) | The name of the application | `string` | `"extension-app-file-archive"` | no |
 | <a name="input_application_oauth_client_id"></a> [application\_oauth\_client\_id](#input\_application\_oauth\_client\_id) | The OAuth client ID for the application. If empty, a random client ID will be generated. | `string` | `""` | no |
 | <a name="input_application_oauth_client_secret"></a> [application\_oauth\_client\_secret](#input\_application\_oauth\_client\_secret) | The OAuth client secret for the application. If empty, a random client secret will be generated. | `string` | `""` | no |
 | <a name="input_application_port"></a> [application\_port](#input\_application\_port) | The port the application listens on | `number` | `3000` | no |
@@ -96,7 +111,7 @@ In that case `azurerm` Terraform provider is [authenticated to Azure using the A
 | <a name="input_docker_host"></a> [docker\_host](#input\_docker\_host) | The Docker host (e.g. 'tcp://127.0.0.1:2376' or 'unix:///var/run/docker.sock') to connect to. If empty, the default Docker host will be used | `string` | `null` | no |
 | <a name="input_is_application_webapp_always_on"></a> [is\_application\_webapp\_always\_on](#input\_is\_application\_webapp\_always\_on) | Whether the application web app should always be on | `bool` | `false` | no |
 | <a name="input_location"></a> [location](#input\_location) | The location/region where the resources will be created | `string` | `"West Europe"` | no |
-| <a name="input_manifest_files_paths"></a> [manifest\_files\_paths](#input\_manifest\_files\_paths) | The list of manifest files relative paths to generate | `list(string)` | <pre>[<br/>  "../../manifests/bankAccountOwnerVerification.manifest.json",<br/>  "../../manifests/bankAccountVerification.manifest.json",<br/>  "../../manifests/businessFeinVerification.manifest.json",<br/>  "../../manifests/emailVerification.manifest.json",<br/>  "../../manifests/phoneVerification.manifest.json",<br/>  "../../manifests/postalAddressVerification.manifest.json",<br/>  "../../manifests/ssnVerification.manifest.json"<br/>]</pre> | no |
+| <a name="input_manifest_files_paths"></a> [manifest\_files\_paths](#input\_manifest\_files\_paths) | The list of manifest files relative paths to generate | `list(string)` | <pre>[<br/>  "../../manifest.json"<br/>]</pre> | no |
 | <a name="input_output_manifest_files_directory"></a> [output\_manifest\_files\_directory](#input\_output\_manifest\_files\_directory) | The directory to output the generated manifest files | `string` | `".terraform"` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group. If it is not defined, the prefixed application name will be used | `string` | `null` | no |
 | <a name="input_subscription_id"></a> [subscription\_id](#input\_subscription\_id) | The Azure subscription ID | `string` | `null` | no |

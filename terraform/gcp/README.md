@@ -1,6 +1,9 @@
 ## Specific Cloud Prerequisites
 
-To get started, you need to:
+Before deploying your extension app on GCP, complete the following setup steps:
+
+1. [Sign up for a Google Cloud account](https://cloud.google.com/free/) (if you don’t already have one).
+    * You must [enable billing](https://cloud.google.com/billing/docs/how-to/manage-billing-account) to use most Google Cloud services, even if staying within the free tier.
 
 1. **Configure Google Cloud SDK**: Install and configure the Google Cloud SDK to interact with your Google account. You can follow the instructions [here](https://cloud.google.com/sdk/docs/install).
 
@@ -9,12 +12,21 @@ To get started, you need to:
     gcloud auth login
     gcloud auth application-default login
     ```
+    * The first command logs you into Google Cloud.
+    * The second command allows Terraform and other tools to use ADC for authentication.
 
 1. **Configure your Google Cloud project**:
     ```sh
     gcloud config set project YOUR_PROJECT_ID
     ```
-
+    If you don’t have a project yet, [create one](https://cloud.google.com/resource-manager/docs/creating-managing-projects):
+    ```sh
+    gcloud projects create YOUR_PROJECT_ID --name="Your Project Name"
+    ```
+    After setting the project, export it as an environment variable so Terraform can reference it:
+    ```sh
+    export GOOGLE_CLOUD_PROJECT="your-project-id"
+    ```
 1. **Enable necessary APIs**: The following services must be [enabled in a project](https://cloud.google.com/service-usage/docs/enable-disable) before their service API can be used by the provider:
     - Cloud Resource Manager API
     - Artifact Registry API
@@ -29,6 +41,8 @@ To get started, you need to:
     ```
 
 In that case `google` Terraform provider is authenticated to Google using [User Application Default Credentials ("ADCs")](https://cloud.google.com/sdk/gcloud/reference/auth/application-default), but you may use other methods for [authenticating to Google](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference#authentication).
+
+Now that you’ve set up your Google Cloud environment, continue with the [Terraform deployment guide](terraform/README.md) to provision your infrastructure.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -85,12 +99,12 @@ In that case `google` Terraform provider is authenticated to Google using [User 
 | <a name="input_application_build_base_image_name"></a> [application\_build\_base\_image\_name](#input\_application\_build\_base\_image\_name) | The name of the base image to use for the application build | `string` | `"node:lts-alpine"` | no |
 | <a name="input_application_build_context"></a> [application\_build\_context](#input\_application\_build\_context) | The relative path to the build context for the application. The build context is the directory from which the Dockerfile is read. If it is empty the current working directory will be used. | `string` | `"../.."` | no |
 | <a name="input_application_build_image_tag"></a> [application\_build\_image\_tag](#input\_application\_build\_image\_tag) | The tag to apply to the application build image. If empty the timestamp tag will be used. | `string` | `""` | no |
-| <a name="input_application_build_labels"></a> [application\_build\_labels](#input\_application\_build\_labels) | The labels to apply to the application build image | `map(string)` | <pre>{<br/>  "org.opencontainers.image.authors": "DocuSign Inc.",<br/>  "org.opencontainers.image.description": "This reference implementation models seven data verification use cases: bank account owner verification, bank account verification, business FEIN verification, email address verification, phone verification, SSN verification, postal address verification.",<br/>  "org.opencontainers.image.licenses": "MIT",<br/>  "org.opencontainers.image.source": "https://github.com/docusign/extension-app-data-verification-reference-implementation-private",<br/>  "org.opencontainers.image.title": "Data Verification Extension App Reference Implementation",<br/>  "org.opencontainers.image.vendor": "DocuSign Inc."<br/>}</pre> | no |
+| <a name="input_application_build_labels"></a> [application\_build\_labels](#input\_application\_build\_labels) | The labels to apply to the application build image | `map(string)` | <pre>{<br/>  "org.opencontainers.image.authors": "DocuSign Inc.",<br/>  "org.opencontainers.image.description": "This reference implementation models the use case of taking an agreement PDF sent by the Docusign platform using a file archive extension app and storing it locally.",<br/>  "org.opencontainers.image.licenses": "MIT",<br/>  "org.opencontainers.image.source": "https://github.com/docusign/extension-app-file-archive-reference-implementation-private",<br/>  "org.opencontainers.image.title": "File Archive Extension App Reference Implementation",<br/>  "org.opencontainers.image.vendor": "DocuSign Inc."<br/>}</pre> | no |
 | <a name="input_application_build_paths"></a> [application\_build\_paths](#input\_application\_build\_paths) | Paths of files relative to the build context, changes to which lead to a rebuild of the image. Supported pattern matches are the same as for the `fileset` Terraform function (https://developer.hashicorp.com/terraform/language/functions/fileset). | `list(string)` | <pre>[<br/>  "public/**",<br/>  "src/**",<br/>  "views/**",<br/>  "package.json",<br/>  "tsconfig.json",<br/>  "Dockerfile",<br/>  ".dockerignore"<br/>]</pre> | no |
 | <a name="input_application_cloud_run_service_name"></a> [application\_cloud\_run\_service\_name](#input\_application\_cloud\_run\_service\_name) | The name of the Cloud Run service. If it is not defined, the prefixed application name will be used | `string` | `null` | no |
 | <a name="input_application_environment_mode"></a> [application\_environment\_mode](#input\_application\_environment\_mode) | The environment mode for the application | `string` | `"production"` | no |
 | <a name="input_application_jwt_secret_key"></a> [application\_jwt\_secret\_key](#input\_application\_jwt\_secret\_key) | The secret key to use for signing JWT tokens. If empty, a random key will be generated. | `string` | `""` | no |
-| <a name="input_application_name"></a> [application\_name](#input\_application\_name) | The name of the application | `string` | `"extension-app-data-verification"` | no |
+| <a name="input_application_name"></a> [application\_name](#input\_application\_name) | The name of the application | `string` | `"extension-app-file-archive"` | no |
 | <a name="input_application_oauth_client_id"></a> [application\_oauth\_client\_id](#input\_application\_oauth\_client\_id) | The OAuth client ID for the application. If empty, a random client ID will be generated. | `string` | `""` | no |
 | <a name="input_application_oauth_client_secret"></a> [application\_oauth\_client\_secret](#input\_application\_oauth\_client\_secret) | The OAuth client secret for the application. If empty, a random client secret will be generated. | `string` | `""` | no |
 | <a name="input_application_port"></a> [application\_port](#input\_application\_port) | The port the application listens on | `number` | `3000` | no |
@@ -103,7 +117,7 @@ In that case `google` Terraform provider is authenticated to Google using [User 
 | <a name="input_do_scan_images"></a> [do\_scan\_images](#input\_do\_scan\_images) | Whether images are scanned after being pushed to the Google Artifact Registry repository | `bool` | `true` | no |
 | <a name="input_docker_host"></a> [docker\_host](#input\_docker\_host) | The Docker host (e.g. 'tcp://127.0.0.1:2376' or 'unix:///var/run/docker.sock') to connect to. If empty, the default Docker host will be used | `string` | `null` | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | A set of key/value label pairs to assign to the resources | `map(string)` | `{}` | no |
-| <a name="input_manifest_files_paths"></a> [manifest\_files\_paths](#input\_manifest\_files\_paths) | The list of manifest files relative paths to generate | `list(string)` | <pre>[<br/>  "../../manifests/bankAccountOwnerVerification.manifest.json",<br/>  "../../manifests/bankAccountVerification.manifest.json",<br/>  "../../manifests/businessFeinVerification.manifest.json",<br/>  "../../manifests/emailVerification.manifest.json",<br/>  "../../manifests/phoneVerification.manifest.json",<br/>  "../../manifests/postalAddressVerification.manifest.json",<br/>  "../../manifests/ssnVerification.manifest.json"<br/>]</pre> | no |
+| <a name="input_manifest_files_paths"></a> [manifest\_files\_paths](#input\_manifest\_files\_paths) | The list of manifest files relative paths to generate | `list(string)` | <pre>[<br/>  "../../manifest.json"<br/>]</pre> | no |
 | <a name="input_output_manifest_files_directory"></a> [output\_manifest\_files\_directory](#input\_output\_manifest\_files\_directory) | The directory to output the generated manifest files | `string` | `".terraform"` | no |
 | <a name="input_project"></a> [project](#input\_project) | The default project project to manage resources in. If another project is specified on a resource, it will take precedence. This can also be specified using the `GOOGLE_PROJECT` environment variable | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | The default region to manage resources in. If another region is specified on a regional resource, it will take precedence. Alternatively, this can be specified using the `GOOGLE_REGION` environment variable | `string` | `"us-central1"` | no |
