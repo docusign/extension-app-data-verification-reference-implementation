@@ -1,0 +1,68 @@
+{
+  "name": "Email Verification App",
+  "description": {
+    "short": "App for email verification",
+    "long": "This app is designed to allow for users to verify email"
+  },
+   "icon": {
+    "data": "iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAMAAADVRocKAAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABFUExURQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANzq6vcAAAAWdFJOUwAQIDBAT1BfYG9wf4CPkJ+gr7/P3+/xrKm8AAADAElEQVRo3u2Z25arIAxAQSnjrYKI/v+nnlkFW60mhNB5Oat5bHEHkhBCEOIrX/kKVaRujfN+/ZVldmZQ8qPw8UE+ijf6M0rUtKyQGF08+R6mh3X8VH+Jf6jo2fzGryTxPyx85d582urqYY6qVq2dD39ODDu1O+sspjkFjGzsfkTuIuT99bFroXBsduu455nn9aVTaAy/7Ghy+E/vzio1Vsexs2Twl4EyfGDzfUX+gMW35I/ksA2lTGnz78DYO4awknsJnxCtTRl/XbuEA5ZC/rrgbpgCf2Tzf3cmwUBe8vnriqWlGKFVCR+bXs92gNkn7yGxxTyfH0JkkbgHNJtvFb4En44CnC9EyN4LkHjDMFXAFwpjWN4C9vxtCdNlSkxHcZovOtjNGjMflS9kCKQbaCFTxt8wIxhDt0J+jHUPukAW8mFOCLC5lA9bYsh2wTU/OqEDfPz2e2+y+TFQzx+6iy3YI0uC+DHcHVBM1KfsbTL5ogLCaDkdNT1Sc8J8UEH44OyVSw0I/4oE/QxqQPkZCiANOD9HwbWGBB9S4C/riQsNKX4FZOVrBWcNKb6ogZzjgBTypiHJj0nN0VLFSUOaD6aKDtxVOw0Efhw+ACemF5gGCj/mHJV14Nhj6wDlw5wQRo1IarD4tRa0xIidOJbKR2oHjRaulsgXcNkSK5oOnVmS3yCunPDS0VL4MYYMsgXh4tcS+JFxw8wHV782yY8Jx2NdDUb9froBQAV0dPPMV+ATTZSBfwunXSJlmMFS8/jVmrxEFlzEn9PDrzBu5dwSDn2aidQM6dkOSDRD4rnD0NCvxDveyNOw8dN9GjlzNGx8yh56NgXv9KagyepTZrc1a0YfNMdMz0cGT+4zvTT45LVWPdvcPqOPxWmOz3l9svF1ys9g9m13bxhjbnppDg8U+uKBwuxHdIzcOB2qrdm0qg5PLJVuzfF5x/Geov74kehxAhFULEPJg2CVWkUZPhzkFqZPSnxCpLZXj6Wj/uiLrBqMmx+B6b0z7UfhX/nK/y7/ACvsl6TSMherAAAAAElFTkSuQmCC",
+    "mediaType": "image/png"
+  },
+  "screenshots": [],
+  "publisher": {
+    "name": "John Doe",
+    "email": "john.doe@gmail.com",
+    "phone": "800-867-5309",
+    "website": "www.johndoe.com"
+  },
+  "termsOfServiceUrl": "www.johndoe.com/tos",
+  "privacyUrl": "www.johndoe.com/privacy",
+  "supportUrl": "www.johndoe.com/support",
+  "connections": [
+    {
+      "name": "authentication",
+      "description": "secure connection to the data verification proxy",
+      "type": "oauth2",
+      "params": {
+        "provider": "CUSTOM",
+        "scopes": [],
+        "clientId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "clientSecret": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "customConfig": {
+          "tokenUrl": "https://app-extension-app-dv-sample-cdb2.azurewebsites.net/api/oauth/token",
+          "authorizationUrl": "https://app-extension-app-dv-sample-cdb2.azurewebsites.net/api/oauth/authorize",
+          "authorizationParams": {
+            "access_type": "offline",
+            "prompt": "consent"
+          },
+          "authorizationMethod": "header",
+          "scopeSeparator": " ",
+          "requiredScopes": []
+        }
+      }
+    }
+  ],
+  "extensions": [
+    {
+      "name": "My Email Verification Extension",
+      "description": "Verify email",
+      "template": "Verify.Version1.Email",
+      "actionReferences": ["My Email Verification Action"]
+    }
+  ],
+  "actions": [
+    {
+      "name": "My Email Verification Action",
+      "description": "Verify email with a proxy",
+      "template": "Verify.Version1.Email",
+      "connectionsReference": "authentication",
+      "params": {
+        "uri": "https://app-extension-app-dv-sample-cdb2.azurewebsites.net/api/verify/email"
+      }
+    }
+  ],
+  "publicationRegions": [
+    "US"
+  ],
+  "distribution": "PUBLIC"
+}

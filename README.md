@@ -11,6 +11,11 @@ This reference implementation models seven data verification use cases:
 
 Each use case corresponds to a separate extension app manifest located in the [manifests](/manifests/) folder of this repository.
 
+## Hosted Version (no setup required)
+You can use the hosted version of this reference implementation by directly uploading the appropriate manifest file located in the [manifests/hosted/](/manifests/hosted/) folder of this repo to the Docusign Developer Console. See [Upload your manifest and create the data verification app](#3-upload-your-manifest-and-create-the-data-verification-app).
+
+**Note:** The provided manifests include `clientId` and `clientSecret` values used in the sample authentication connection. These do not authenticate to a real system, but the hosted reference implementation requires these exact values.
+
 ## Choose your setup: local or cloud deployment
 If you want to run the app locally using Node.js and ngrok, follow the [Local setup instructions](#local-setup-instructions) below.
 
