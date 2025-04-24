@@ -257,13 +257,20 @@ variable "manifest_files_paths" {
   description = "The list of manifest files relative paths to generate"
   type        = list(string)
   default = [
-    "../../manifests/bankAccountOwnerVerification.manifest.json",
-    "../../manifests/bankAccountVerification.manifest.json",
-    "../../manifests/businessFeinVerification.manifest.json",
-    "../../manifests/emailVerification.manifest.json",
-    "../../manifests/phoneVerification.manifest.json",
-    "../../manifests/postalAddressVerification.manifest.json",
-    "../../manifests/ssnVerification.manifest.json",
+    "../../manifests/authorizationCode/bankAccountOwnerVerification.manifest.json",
+    "../../manifests/authorizationCode/bankAccountVerification.manifest.json",
+    "../../manifests/authorizationCode/businessFeinVerification.manifest.json",
+    "../../manifests/authorizationCode/emailVerification.manifest.json",
+    "../../manifests/authorizationCode/phoneVerification.manifest.json",
+    "../../manifests/authorizationCode/postalAddressVerification.manifest.json",
+    "../../manifests/authorizationCode/ssnVerification.manifest.json",
+    "../../manifests/clientCredentials/bankAccountOwnerVerification.manifest.json",
+    "../../manifests/clientCredentials/bankAccountVerification.manifest.json",
+    "../../manifests/clientCredentials/businessFeinVerification.manifest.json",
+    "../../manifests/clientCredentials/emailVerification.manifest.json",
+    "../../manifests/clientCredentials/phoneVerification.manifest.json",
+    "../../manifests/clientCredentials/postalAddressVerification.manifest.json",
+    "../../manifests/clientCredentials/ssnVerification.manifest.json"
   ]
 }
 
