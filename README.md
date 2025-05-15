@@ -11,6 +11,9 @@ This reference implementation models seven data verification use cases:
 
 Each use case corresponds to a separate extension app manifest located in the [manifests](/manifests/) folder of this repository.
 
+## Combining with Other Extensions
+The data verification extension type is designed to work with other extension types to enhance the functionality of an extension app and simplify workflows. For a practical example of combining extension types in an extension app, see the [File Archive and Data Verification Reference Implementation](https://github.com/docusign/file-archive-dv-reference-implementation/).
+
 ## Authentication
 This reference implementation supports two [authentication](https://developers.docusign.com/extension-apps/build-an-extension-app/it-infrastructure/authorization/) flows:
 * [Authorization Code Grant](https://developers.docusign.com/extension-apps/build-an-extension-app/it-infrastructure/authorization/#authorization-code-grant) – required for public extension apps
