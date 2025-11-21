@@ -11,6 +11,8 @@ This reference implementation models seven data verification use cases:
 
 Each use case corresponds to a separate extension app manifest located in the [manifests](/manifests/) folder of this repository.
 
+For an example of a reference implementation with multiple extensions, see the [Data IO and Data Verification Reference Implementation](https://github.com/docusign/extension-app-data-io-and-verification-reference-implementation/).
+
 ## Authentication
 This reference implementation supports two [authentication](https://developers.docusign.com/extension-apps/build-an-extension-app/it-infrastructure/authorization/) flows:
 * [Authorization Code Grant](https://developers.docusign.com/extension-apps/build-an-extension-app/it-infrastructure/authorization/#authorization-code-grant) – required for public extension apps
