@@ -286,3 +286,9 @@ variable "tags" {
   description = "A map of the tags to apply to various resources"
   default     = {}
 }
+
+variable "execution_mode" {
+  description = "Execution mode: 'local' or 'ci'"
+  type        = string
+  default     = "local"
+}
