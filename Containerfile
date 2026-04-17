@@ -63,7 +63,6 @@ ARG APP_DIR
 
 ENV NODE_ENV=production
 
-COPY --chown=${UID}:${GID} ./public ./public
 COPY --chown=${UID}:${GID} ./views ./views
 COPY --chown=${UID}:${GID} --from=build ${APP_DIR}/dist ./dist
 
