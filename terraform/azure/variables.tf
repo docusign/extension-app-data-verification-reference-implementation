@@ -61,7 +61,7 @@ variable "application_build_base_image_name" {
   description = "The name of the base image to use for the application build"
   type        = string
   nullable    = false
-  default     = "node:lts-alpine"
+  default     = "node:22.23.4-alpine"
 }
 
 variable "application_build_image_tag" {

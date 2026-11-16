@@ -1,5 +1,5 @@
 # Global arguments
-ARG BASE_IMAGE=node:lts-alpine
+ARG BASE_IMAGE=node:22.23.4-alpine
 ARG APP_DIR=/usr/src/app
 ARG UID=1000
 ARG GID=1000
@@ -27,6 +27,7 @@ FROM base AS dependencies
 ARG APP_DIR
 
 RUN --mount=type=bind,source=./package.json,target=${APP_DIR}/package.json \
+    --mount=type=bind,source=./.npmrc,target=${APP_DIR}/.npmrc \
     --mount=type=cache,target=${APP_DIR}/.npm,uid=$UID,gid=$GID,mode=0755,sharing=locked \
     npm install && \
     touch ${APP_DIR}/production.env && \
