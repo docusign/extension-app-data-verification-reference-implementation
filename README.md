@@ -45,6 +45,7 @@ git clone https://github.com/docusign/extension-app-data-verification-reference-
 ```
 
 ### 2. [Install and configure Node.js and npm on your machine.](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+This project requires Node.js `^22.23.4`, `^24.22.1` or `^26.12.1`.
 
 ### 3. Generate secret values
 - If you already have values for `JWT_SECRET_KEY`, `OAUTH_CLIENT_ID`, `OAUTH_CLIENT_SECRET`, and `AUTHORIZATION_CODE`, you may skip this step.
